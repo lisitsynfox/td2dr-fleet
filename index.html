@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b0704">
+<title>TD2DR × Fleetway</title>
+<link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="fire-bg" aria-hidden="true">
+    <div class="glow glow-a"></div>
+    <div class="glow glow-b"></div>
+    <div class="embers"></div>
+</div>
+
+<main class="page">
+    <header class="topbar">
+        <div class="lang-switch" aria-label="Language">
+            <button class="lang-btn active" type="button" data-lang="ru">RU</button>
+            <button class="lang-btn" type="button" data-lang="en">EN</button>
+            <button class="lang-btn" type="button" data-lang="es">ES</button>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-logo">
+            <img src="logo.png" alt="Fleetway">
+        </div>
+
+        <div class="hero-copy">
+            <div class="eyebrow" data-i18n="creditsKicker">АВТОРЫ</div>
+            <h1>TD2DR <span class="cross">×</span> FLEETWAY</h1>
+            <div class="byline" data-i18n="byline">ОТ LИСИЦЫН &amp; KIMIKIM</div>
+            <p data-i18n="intro">Люди и авторы, чьи работы используются в этой версии мода.</p>
+        </div>
+    </section>
+
+    <section class="credits" aria-label="Участники проекта" data-i18n-aria="creditsLabel">
+        <a class="credit-card" href="https://vk.ru/gazgull1" target="_blank" rel="noopener noreferrer">
+            <div class="credit-top">
+                <span class="number">01</span>
+                <span class="arrow">↗</span>
+            </div>
+            <h2>ГАЗГУЛЛ</h2>
+            <p data-i18n="gazgull">Профессиональный спрайтер, в моде есть его Флитвей для меню выбора</p>
+        </a>
+
+        <a class="credit-card" href="https://www.youtube.com/@rolin2026yt_oficial" target="_blank" rel="noopener noreferrer">
+            <div class="credit-top">
+                <span class="number">02</span>
+                <span class="arrow">↗</span>
+            </div>
+            <h2>ROLIN2026YT</h2>
+            <p data-i18n="rolin">Дал спрайты на Флитвея</p>
+        </a>
+
+        <a class="credit-card" href="https://www.youtube.com/@astranovayt" target="_blank" rel="noopener noreferrer">
+            <div class="credit-top">
+                <span class="number">03</span>
+                <span class="arrow">↗</span>
+            </div>
+            <h2>Astranova</h2>
+            <p data-i18n="astranova">Её композиция Fleetway UNLEASHED</p>
+        </a>
+    </section>
+
+    <footer>
+        <span>TD2DR</span>
+        <i></i>
+        <span>FLEETWAY</span>
+    </footer>
+</main>
+
+<script>
+const translations = {
+    ru: {
+        creditsKicker: 'АВТОРЫ',
+        byline: 'ОТ LИСИЦЫН & KIMIKIM',
+        intro: 'Люди и авторы, чьи работы используются в этой версии мода.',
+        gazgull: 'Профессиональный спрайтер, в моде есть его Флитвей для меню выбора',
+        rolin: 'Дал спрайты на Флитвея',
+        astranova: 'Её композиция Fleetway UNLEASHED',
+        creditsLabel: 'Участники проекта'
+    },
+    en: {
+        creditsKicker: 'CREDITS',
+        byline: 'BY LИСИЦЫН & KIMIKIM',
+        intro: 'People and creators whose work is used in this version of the mod.',
+        gazgull: 'Professional spriter; his Fleetway is used in the mod’s character select menu',
+        rolin: 'Provided Fleetway sprites',
+        astranova: 'Her composition Fleetway UNLEASHED',
+        creditsLabel: 'Project contributors'
+    },
+    es: {
+        creditsKicker: 'CRÉDITOS',
+        byline: 'POR LИСИЦЫН & KIMIKIM',
+        intro: 'Personas y autores cuyo trabajo se usa en esta versión del mod.',
+        gazgull: 'Spriter profesional; su Fleetway se usa en el menú de selección de personajes del mod',
+        rolin: 'Aportó sprites para Fleetway',
+        astranova: 'Su composición Fleetway UNLEASHED',
+        creditsLabel: 'Colaboradores del proyecto'
+    }
+};
+
+function setLanguage(lang) {
+    const dictionary = translations[lang] || translations.ru;
+    document.documentElement.lang = lang;
+
+    document.querySelectorAll('[data-i18n]').forEach((element) => {
+        const key = element.dataset.i18n;
+        if (dictionary[key]) element.textContent = dictionary[key];
+    });
+
+    document.querySelectorAll('[data-i18n-aria]').forEach((element) => {
+        const key = element.dataset.i18nAria;
+        if (dictionary[key]) element.setAttribute('aria-label', dictionary[key]);
+    });
+
+    document.querySelectorAll('.lang-btn').forEach((button) => {
+        const active = button.dataset.lang === lang;
+        button.classList.toggle('active', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+
+    try { localStorage.setItem('td2dr-fleetway-language', lang); } catch (_) {}
+}
+
+document.querySelectorAll('.lang-btn').forEach((button) => {
+    button.addEventListener('click', () => setLanguage(button.dataset.lang));
+});
+
+let savedLanguage = 'ru';
+try {
+    const saved = localStorage.getItem('td2dr-fleetway-language');
+    if (saved && translations[saved]) savedLanguage = saved;
+} catch (_) {}
+setLanguage(savedLanguage);
+</script>
+</body>
+</html>
