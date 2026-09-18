@@ -174,7 +174,7 @@ h1 .cross{
 
 .credits{
     display:grid;
-    grid-template-columns:repeat(3,minmax(0,1fr));
+    grid-template-columns:repeat(4,minmax(0,1fr));
     gap:14px;
     margin-top:14px;
 }
@@ -237,6 +237,7 @@ footer i{width:30px;height:1px;background:linear-gradient(90deg,var(--orange),va
 
 @media (max-width:980px){
     .page{width:min(100% - 28px,900px)}
+    .credits{grid-template-columns:repeat(2,minmax(0,1fr))}
     .hero{grid-template-columns:150px minmax(0,1fr);gap:32px;padding:36px 34px;min-height:290px}
     .hero-logo{width:150px;height:150px}
     .hero-logo img{width:122px;max-height:122px}
